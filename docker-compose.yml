@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:13
+    image: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: htmlneyazik
@@ -19,7 +19,11 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/calendar?sslmode=disable
+      - DATABASE_URL=postgres://postgres:htmlneyazik@db:5432/calendar?sslmode=disable
 
 volumes:
   db-data:
+
+networks:
+  my-network:
+    driver: bridge

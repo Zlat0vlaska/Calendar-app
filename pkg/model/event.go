@@ -4,11 +4,17 @@ import "time"
 
 // Event структура, представляющая событие
 type Event struct {
-	ID        uint      `gorm:"primaryKey"`
-	Title     string    `json:"title"`
-	Details   string    `json:"details"`
-	StartTime time.Time `json:"start_time"`
-	EndTime   time.Time `json:"end_time"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID              uint      `db:"primaryKey"`
+	Name            string    `db:"name"`
+	Place           string    `db:"place"`
+	Comment         *string   `db:"comment"`
+	RecipientEmails []*string `db:"recipient_emails"`
+	ApplicantEmail  string    `db:"applicant_email"`
+	StartDate       time.Time `db:"start_date"`
+	EndDate         time.Time `db:"end_date"`
+	IsFullDay       bool      `db:"is_full_day"`
+	IsOnline        bool      `db:"is_online"`
+	AuthorEmail     string    `db:"author_email"`
+	CreatedAt       time.Time
+	UpdatedAt       time.Time
 }

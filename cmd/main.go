@@ -4,25 +4,21 @@ import (
 	"calendar-app/internal/controller"
 	"calendar-app/internal/repository"
 	"calendar-app/internal/service"
-	"calendar-app/pkg/model"
+	"database/sql"
 	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
+	_ "github.com/lib/pq"
 )
 
 func main() {
 	// Подключение к базе данных
-	dsn := "host=localhost user=postgres password=htmlneyazik dbname=calendar port=5432 sslmode=disable"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	dsn := "host=db user=postgres password=htmlneyazik dbname=calendar port=5432 sslmode=disable"
+	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		log.Fatal("failed to connect database: ", err)
 	}
-
-	// Миграции
-	db.AutoMigrate(&model.Event{})
 
 	// Инициализация репозитория, сервиса и контроллера
 	eventRepo := repository.NewEventRepository(db)

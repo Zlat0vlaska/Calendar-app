@@ -20,7 +20,7 @@ func NewEventController(eventService service.EventService) *EventController {
 
 // CreateEvent - обработчик для создания события
 func (c *EventController) CreateEvent(ctx *gin.Context) {
-	var eventDTO dto.EventCreateDTO
+	var eventDTO dto.EventDTO
 	if err := ctx.ShouldBindJSON(&eventDTO); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -28,10 +28,16 @@ func (c *EventController) CreateEvent(ctx *gin.Context) {
 
 	// Маппинг DTO в доменную сущность
 	event := model.Event{
-		Title:     eventDTO.Title,
-		Details:   eventDTO.Details,
-		StartTime: eventDTO.StartTime,
-		EndTime:   eventDTO.EndTime,
+		Name:            eventDTO.Name,
+		Place:           eventDTO.Place,
+		Comment:         eventDTO.Comment,
+		RecipientEmails: eventDTO.RecipientEmails,
+		ApplicantEmail:  eventDTO.ApplicantEmail,
+		StartDate:       eventDTO.StartDate,
+		EndDate:         eventDTO.EndDate,
+		IsFullDay:       eventDTO.IsFullDay,
+		IsOnline:        eventDTO.IsOnline,
+		AuthorEmail:     eventDTO.AuthorEmail,
 	}
 
 	if err := c.eventService.CreateEvent(&event); err != nil {
@@ -41,13 +47,19 @@ func (c *EventController) CreateEvent(ctx *gin.Context) {
 
 	// Маппинг доменной сущности в DTO для ответа
 	responseDTO := dto.EventResponseDTO{
-		ID:        event.ID,
-		Title:     event.Title,
-		Details:   event.Details,
-		StartTime: event.StartTime,
-		EndTime:   event.EndTime,
-		CreatedAt: event.CreatedAt,
-		UpdatedAt: event.UpdatedAt,
+		ID:              event.ID,
+		Name:            eventDTO.Name,
+		Place:           eventDTO.Place,
+		Comment:         eventDTO.Comment,
+		RecipientEmails: eventDTO.RecipientEmails,
+		ApplicantEmail:  eventDTO.ApplicantEmail,
+		StartDate:       eventDTO.StartDate,
+		EndDate:         eventDTO.EndDate,
+		IsFullDay:       eventDTO.IsFullDay,
+		IsOnline:        eventDTO.IsOnline,
+		AuthorEmail:     eventDTO.AuthorEmail,
+		CreatedAt:       event.CreatedAt,
+		UpdatedAt:       event.UpdatedAt,
 	}
 
 	ctx.JSON(http.StatusOK, responseDTO)
@@ -55,7 +67,7 @@ func (c *EventController) CreateEvent(ctx *gin.Context) {
 
 // UpdateEvent - обработчик для обновления события
 func (c *EventController) UpdateEvent(ctx *gin.Context) {
-	var eventDTO dto.EventUpdateDTO
+	var eventDTO dto.EventDTO
 	if err := ctx.ShouldBindJSON(&eventDTO); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -63,11 +75,17 @@ func (c *EventController) UpdateEvent(ctx *gin.Context) {
 
 	// Маппинг DTO в доменную сущность
 	event := model.Event{
-		ID:        eventDTO.ID,
-		Title:     eventDTO.Title,
-		Details:   eventDTO.Details,
-		StartTime: eventDTO.StartTime,
-		EndTime:   eventDTO.EndTime,
+		ID:              eventDTO.ID,
+		Name:            eventDTO.Name,
+		Place:           eventDTO.Place,
+		Comment:         eventDTO.Comment,
+		RecipientEmails: eventDTO.RecipientEmails,
+		ApplicantEmail:  eventDTO.ApplicantEmail,
+		StartDate:       eventDTO.StartDate,
+		EndDate:         eventDTO.EndDate,
+		IsFullDay:       eventDTO.IsFullDay,
+		IsOnline:        eventDTO.IsOnline,
+		AuthorEmail:     eventDTO.AuthorEmail,
 	}
 
 	if err := c.eventService.UpdateEvent(&event); err != nil {
@@ -77,13 +95,19 @@ func (c *EventController) UpdateEvent(ctx *gin.Context) {
 
 	// Маппинг доменной сущности в DTO для ответа
 	responseDTO := dto.EventResponseDTO{
-		ID:        event.ID,
-		Title:     event.Title,
-		Details:   event.Details,
-		StartTime: event.StartTime,
-		EndTime:   event.EndTime,
-		CreatedAt: event.CreatedAt,
-		UpdatedAt: event.UpdatedAt,
+		ID:              event.ID,
+		Name:            eventDTO.Name,
+		Place:           eventDTO.Place,
+		Comment:         eventDTO.Comment,
+		RecipientEmails: eventDTO.RecipientEmails,
+		ApplicantEmail:  eventDTO.ApplicantEmail,
+		StartDate:       eventDTO.StartDate,
+		EndDate:         eventDTO.EndDate,
+		IsFullDay:       eventDTO.IsFullDay,
+		IsOnline:        eventDTO.IsOnline,
+		AuthorEmail:     eventDTO.AuthorEmail,
+		CreatedAt:       event.CreatedAt,
+		UpdatedAt:       event.UpdatedAt,
 	}
 
 	ctx.JSON(http.StatusOK, responseDTO)
@@ -112,13 +136,19 @@ func (c *EventController) GetEventByID(ctx *gin.Context) {
 
 	// Маппинг доменной сущности в DTO для ответа
 	responseDTO := dto.EventResponseDTO{
-		ID:        event.ID,
-		Title:     event.Title,
-		Details:   event.Details,
-		StartTime: event.StartTime,
-		EndTime:   event.EndTime,
-		CreatedAt: event.CreatedAt,
-		UpdatedAt: event.UpdatedAt,
+		ID:              event.ID,
+		Name:            event.Name,
+		Place:           event.Place,
+		Comment:         event.Comment,
+		RecipientEmails: event.RecipientEmails,
+		ApplicantEmail:  event.ApplicantEmail,
+		StartDate:       event.StartDate,
+		EndDate:         event.EndDate,
+		IsFullDay:       event.IsFullDay,
+		IsOnline:        event.IsOnline,
+		AuthorEmail:     event.AuthorEmail,
+		CreatedAt:       event.CreatedAt,
+		UpdatedAt:       event.UpdatedAt,
 	}
 
 	ctx.JSON(http.StatusOK, responseDTO)
@@ -136,13 +166,19 @@ func (c *EventController) GetAllEvents(ctx *gin.Context) {
 	var responseDTOs []dto.EventResponseDTO
 	for _, event := range events {
 		responseDTO := dto.EventResponseDTO{
-			ID:        event.ID,
-			Title:     event.Title,
-			Details:   event.Details,
-			StartTime: event.StartTime,
-			EndTime:   event.EndTime,
-			CreatedAt: event.CreatedAt,
-			UpdatedAt: event.UpdatedAt,
+			ID:              event.ID,
+			Name:            event.Name,
+			Place:           event.Place,
+			Comment:         event.Comment,
+			RecipientEmails: event.RecipientEmails,
+			ApplicantEmail:  event.ApplicantEmail,
+			StartDate:       event.StartDate,
+			EndDate:         event.EndDate,
+			IsFullDay:       event.IsFullDay,
+			IsOnline:        event.IsOnline,
+			AuthorEmail:     event.AuthorEmail,
+			CreatedAt:       event.CreatedAt,
+			UpdatedAt:       event.UpdatedAt,
 		}
 		responseDTOs = append(responseDTOs, responseDTO)
 	}

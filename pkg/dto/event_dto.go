@@ -2,30 +2,34 @@ package dto
 
 import "time"
 
-// EventCreateDTO - DTO для создания события
-type EventCreateDTO struct {
-	Title     string    `json:"title" binding:"required"`
-	Details   string    `json:"details"`
-	StartTime time.Time `json:"start_time" binding:"required"`
-	EndTime   time.Time `json:"end_time" binding:"required"`
-}
-
-// EventUpdateDTO - DTO для обновления события
-type EventUpdateDTO struct {
-	ID        uint      `json:"id" binding:"required"`
-	Title     string    `json:"title" binding:"required"`
-	Details   string    `json:"details"`
-	StartTime time.Time `json:"start_time" binding:"required"`
-	EndTime   time.Time `json:"end_time" binding:"required"`
+// EventDTO - DTO
+type EventDTO struct {
+	ID              uint      `json:"primaryKey"`
+	Name            string    `json:"name"`
+	Place           string    `json:"place"`
+	Comment         *string   `json:"comment"`
+	RecipientEmails []*string `json:"recipient_emails"`
+	ApplicantEmail  string    `json:"applicant_email"`
+	StartDate       time.Time `json:"start_date"`
+	EndDate         time.Time `json:"end_date"`
+	IsFullDay       bool      `json:"is_full_day"`
+	IsOnline        bool      `json:"is_online"`
+	AuthorEmail     string    `json:"author_email"`
 }
 
 // EventResponseDTO - DTO для ответа с данными события
 type EventResponseDTO struct {
-	ID        uint      `json:"id"`
-	Title     string    `json:"title"`
-	Details   string    `json:"details"`
-	StartTime time.Time `json:"start_time"`
-	EndTime   time.Time `json:"end_time"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	ID              uint      `json:"primaryKey"`
+	Name            string    `json:"name"`
+	Place           string    `json:"place"`
+	Comment         *string   `json:"comment"`
+	RecipientEmails []*string `json:"recipient_emails"`
+	ApplicantEmail  string    `json:"applicant_email"`
+	StartDate       time.Time `json:"start_date"`
+	EndDate         time.Time `json:"end_date"`
+	IsFullDay       bool      `json:"is_full_day"`
+	IsOnline        bool      `json:"is_online"`
+	AuthorEmail     string    `json:"author_email"`
+	CreatedAt       time.Time `json:"created_at"`
+	UpdatedAt       time.Time `json:"updated_at"`
 }
